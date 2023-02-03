@@ -90,19 +90,24 @@ const clubPrompts = {
 		// }
 
 		let names = data.map(club => club.members).flat()
-		let noDuplicates = [...new Set(names)]
+    	let noDuplicates = [...new Set(names)]
 
-		let theirClubs = data.map(club => {
-			club.members.filter(member => member === 'Louisa')
-		})
-		// let membership = noDuplicates.reduce((a, cV) => {
-		//   a[cV] = cV
-		// }, {})
-		// console.log(theirClubs)
-		// console.log(noDuplicates)
 
+    	let membership = noDuplicates.reduce((acc, name) => {
+      		acc[name] = []
+      		data.forEach((club, index) => {
+        		club.members.forEach(member => {
+          			if(member === name) {
+            			acc[name].push(data[index].club)
+          			}
+        		})
+      		})
+      		return acc
+    	}, {})
+
+		return membership
 		// Annotation:
-		// Write your annotation here as a comment
+		// I am confident there is a better way to do this but here's my solution. First I get an array of every unique name by iterating through the clubs array and mapping every name value from the members key. I then flatten the array (remove all the inner brackets) with .flat(). I then create a new set inside an array using the spread operator which removes all the duplicate names. Then I run reduce to first set up an object where each key is the name and the value is a blank array. Then I run nested forEachs to go back through the clubs array, into the members array and push the club names into the blank name value array where the current name and the name in the members array match.
 	}
 };
 
@@ -114,7 +119,7 @@ const clubPrompts = {
 
 // DATASET: mods from ./datasets/mods
 const modPrompts = {
-	studentsPerMod(data) {
+	studentsPerMod() {
 		// Return an array of objects where the keys are mod (the number of the module)
 		// and studentsPerInstructor (how many students per instructor there are for that mod) e.g.
 		// [
@@ -125,12 +130,19 @@ const modPrompts = {
 		// ]
 
 		/* CODE GOES HERE */
-		// data.reduce((a, cV) => {
-		//   a[cV] = 
-		// }, {})
 
+		let ratio = mods.map(modObj => {
+			return {mod: modObj.mod, studentsPerInstructor: (modObj.students /modObj.instructors)}
+		})
+
+		// let ratio = mods.reduce((acc, modObj) => {
+		//   acc.push({mod: modObj.mod, studentsPerInstructor: (modObj.students /modObj.instructors)})
+		//   return acc
+		// }, [])
+
+		return ratio
 		// Annotation:
-		// Write your annotation here as a comment
+		// I first solved it using a reduce iterator but it seemed kind of silly to start with a blank array and push into every time when map does that already. So I re-wrote it so that map returns a new object for every instance of mod where mod is equal to the value of mod and then there's a new property called studentsPerInstructor thats set to the students divided by the instructors.
 	}
 };
 
@@ -204,7 +216,7 @@ const cakePrompts = {
 		let allToppings = cakes.map(cake => cake.toppings).flat()
 		let noDups = [...new Set(allToppings)]
 		return noDups
-		
+
 		// Annotation:
 		// Write your annotation here as a comment
 	},
@@ -357,9 +369,10 @@ const weatherPrompts = {
 		// [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
 		/* CODE GOES HERE */
+		return weather.map(city => (city.temperature.high + city.temperature.low) / 2)
 
 		// Annotation:
-		// Write your annotation here as a comment
+		// Map returns an array of the same length so is the best choice for this case
 	},
 
 	findSunnySpots() {
@@ -370,9 +383,10 @@ const weatherPrompts = {
 		// 'Raleigh, North Carolina is mostly sunny.' ]
 
 		/* CODE GOES HERE */
+		return weather.filter(city => city.type === 'sunny' || city.type === 'mostly sunny').map(city => `${city.location} is ${city.type}.`)
 
 		// Annotation:
-		// Write your annotation here as a comment
+		// Filter will give us only the city objects that are sunny or mostly sunny and then map will give us a new array with the info we want. The value after the arrow in map will be whatever you want returned.
 	},
 
 	findHighestHumidity() {
@@ -385,9 +399,11 @@ const weatherPrompts = {
 		// }
 
 		/* CODE GOES HERE */
+		let citiesByHumidity = weather.sort((aCity, bCity) => bCity.humidity - aCity.humidity)
+		return citiesByHumidity[0]
 
 		// Annotation:
-		// Write your annotation here as a comment
+		// First instinct was to use find since we're only looking for one object back but having to compare each humidty temp to each other makes me think sort or reduce is the answer. I used sort to create a new array where the cities are ranked in order from highest humidity to lowest humidity. Then I return the first value from that new array. Sort takes two values and compares them to each other based off how you tell it to. In this case we are comparing b - a which will sort a behind b based off whether the value of b - a is negative or not. If b - a is positive, a gets sorted after b. If b - a is negative, b gets sorted after a.
 
 	}
 };
@@ -397,7 +413,6 @@ const weatherPrompts = {
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
 
 // DATASET: nationalParks from ./datasets/nationalParks
 

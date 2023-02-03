@@ -13,61 +13,56 @@ const { constellations, stars } = require('./datasets/astronomy');
 const { weapons, characters } = require('./datasets/ultima');
 const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
-
-
 // SINGLE DATASETS
 // =================================================================
 
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
-  orangePetNames(petData) {
-    // Return an array of just the names of kitties who are orange e.g.
-        // ['Tiger', 'Snickers']
+	orangePetNames(petData) {
+		// Return an array of just the names of kitties who are orange e.g.
+				// ['Tiger', 'Snickers']
 
-    const orangePetNames = petData.filter(pet => pet.color === 'orange')
-                                  .map(pet => pet.name)
-      return orangePetNames
+		const orangePetNames = petData.filter(pet => pet.color === 'orange')
+									.map(pet => pet.name)
+			return orangePetNames
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  sortByAge(petData) {
-    // Sort the kitties by their age
+	sortByAge(petData) {
+		// Sort the kitties by their age
 
-    return petData.sort((a, b) => b.age - a.age)
+		return petData.sort((a, b) => b.age - a.age)
 
-    // Annotation:
-    // .sort is interesting... a, b are comparisons of items in the array where a is the first and b is each item after. You must use dot notation to tell .sort where to find the values you want to sort by. a and b are evaluated to return 1, -1, or 0. 1 means a is greater than b, -1 means a is less than b and 0 means they are equal.
-  },
+		// Annotation:
+		// .sort is interesting... a, b are comparisons of items in the array where a is the first and b is each item after. You must use dot notation to tell .sort where to find the values you want to sort by. a and b are evaluated to return 1, -1, or 0. 1 means a is greater than b, -1 means a is less than b and 0 means they are equal.
+	},
 
-  growUp(petData) {
-    // Return an array of kitties who have all grown up by 2 years e.g.
-    // [{
-    //   name: 'Felicia',
-    //   age: 4,
-    //   color: 'grey'
-    // },
-    // {
-    //   name: 'Tiger',
-    //   age: 7,
-    //   color: 'orange'
-    // },
-    // ...etc]
+	growUp(petData) {
+		// Return an array of kitties who have all grown up by 2 years e.g.
+		// [{
+		//   name: 'Felicia',
+		//   age: 4,
+		//   color: 'grey'
+		// },
+		// {
+		//   name: 'Tiger',
+		//   age: 7,
+		//   color: 'orange'
+		// },
+		// ...etc]
 
-    
-    
-    const oldPets = petData.map(pet => {
-      pet.age = pet.age + 2
-      return pet
-    })
-    return oldPets
+		const oldPets = petData.map(pet => {
+			pet.age = pet.age + 2
+			return pet
+		})
+		return oldPets
 
-
-    // How do I get this to work??
-    // const oldPets = petData.map(pet => pet.age = pet.age + 2)
-    //   return oldPets
-  }
+		// How do I get this to work??
+		// const oldPets = petData.map(pet => pet.age = pet.age + 2)
+		//   return oldPets
+	}
 };
 
 // PLEASE READ-----------------------
@@ -76,188 +71,160 @@ const kittyPrompts = {
 // they can perform the same utility
 // for the kitties or puppers datasets, depending on what arguments you send through.
 
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
-
-
-
 
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
-  membersBelongingToClubs(data) {
-    // Your function should access the clubs data through a parameter (it is being passed as an argument in the test file)
-    // Create an object whose keys are the names of people, and whose values are
-    // arrays that include the names of the clubs that person is a part of. e.g.
-    // {
-    //   Louisa: ['Drama', 'Art'],
-    //   Pam: ['Drama', 'Art', 'Chess'],
-    //   ...etc
-    // }
+	membersBelongingToClubs(data) {
+		// Your function should access the clubs data through a parameter (it is being passed as an argument in the test file)
+		// Create an object whose keys are the names of people, and whose values are
+		// arrays that include the names of the clubs that person is a part of. e.g.
+		// {
+		//   Louisa: ['Drama', 'Art'],
+		//   Pam: ['Drama', 'Art', 'Chess'],
+		//   ...etc
+		// }
 
-    /* CODE GOES HERE */
-    let names = data.map(club => club.members).flat()
-    let noDuplicates = [...new Set(names)]
+		let names = data.map(club => club.members).flat()
+		let noDuplicates = [...new Set(names)]
 
-    let theirClubs = data.map(club => {
-      club.members.filter(member => member === 'Louisa')
-    })
-    // let membership = noDuplicates.reduce((a, cV) => {
-    //   a[cV] = cV
-    // }, {})
-    // console.log(theirClubs)
-    // console.log(noDuplicates)
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		let theirClubs = data.map(club => {
+			club.members.filter(member => member === 'Louisa')
+		})
+		// let membership = noDuplicates.reduce((a, cV) => {
+		//   a[cV] = cV
+		// }, {})
+		// console.log(theirClubs)
+		// console.log(noDuplicates)
+
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
-
-
-
-
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
-
-
-
 
 // DATASET: mods from ./datasets/mods
 const modPrompts = {
-  studentsPerMod(data) {
-    // Return an array of objects where the keys are mod (the number of the module)
-    // and studentsPerInstructor (how many students per instructor there are for that mod) e.g.
-    // [
-    //   { mod: 1, studentsPerInstructor: 9 },
-    //   { mod: 2, studentsPerInstructor: 11 },
-    //   { mod: 3, studentsPerInstructor: 10 },
-    //   { mod: 4, studentsPerInstructor: 8 }
-    // ]
+	studentsPerMod(data) {
+		// Return an array of objects where the keys are mod (the number of the module)
+		// and studentsPerInstructor (how many students per instructor there are for that mod) e.g.
+		// [
+		//   { mod: 1, studentsPerInstructor: 9 },
+		//   { mod: 2, studentsPerInstructor: 11 },
+		//   { mod: 3, studentsPerInstructor: 10 },
+		//   { mod: 4, studentsPerInstructor: 8 }
+		// ]
 
-    /* CODE GOES HERE */
-    // data.reduce((a, cV) => {
-    //   a[cV] = 
-    // }, {})
+		/* CODE GOES HERE */
+		// data.reduce((a, cV) => {
+		//   a[cV] = 
+		// }, {})
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
-
-
-
-
-
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
-
-
-
-
-
 
 // DATASET: cakes from ./datasets/cakes
 const cakePrompts = {
-  stockPerCake() {
-    // Return an array of objects that include just the flavor of the cake and how
-    // much of that cake is in stock e.g.
-    // [
-    //    { flavor: 'dark chocolate', inStock: 15 },
-    //    { flavor: 'yellow', inStock: 14 },
-    //    ..etc
-    // ]
+	stockPerCake() {
+		// Return an array of objects that include just the flavor of the cake and how
+		// much of that cake is in stock e.g.
+		// [
+		//    { flavor: 'dark chocolate', inStock: 15 },
+		//    { flavor: 'yellow', inStock: 14 },
+		//    ..etc
+		// ]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  onlyInStock() {
-    // Return an array of only the cakes that are in stock
-    // e.g.
-    // [
-    //   {
-    //   cakeFlavor: 'dark chocolate',
-    //   filling: null,
-    //   frosting: 'dark chocolate ganache',
-    //   toppings: ['dutch process cocoa', 'toasted sugar', 'smoked sea salt'],
-    //   inStock: 15
-    // },
-    // {
-    //   cakeFlavor: 'yellow',
-    //   filling: 'citrus glaze',
-    //   frosting: 'chantilly cream',
-    //   toppings: ['berries', 'edible flowers'],
-    //   inStock: 14
-    // },
-    // ..etc
-    // ]
+	onlyInStock() {
+		// Return an array of only the cakes that are in stock
+		// e.g.
+		// [
+		//   {
+		//   cakeFlavor: 'dark chocolate',
+		//   filling: null,
+		//   frosting: 'dark chocolate ganache',
+		//   toppings: ['dutch process cocoa', 'toasted sugar', 'smoked sea salt'],
+		//   inStock: 15
+		// },
+		// {
+		//   cakeFlavor: 'yellow',
+		//   filling: 'citrus glaze',
+		//   frosting: 'chantilly cream',
+		//   toppings: ['berries', 'edible flowers'],
+		//   inStock: 14
+		// },
+		// ..etc
+		// ]
 
-    /* CODE GOES HERE */
+		let inStock = cakes.filter(cake => cake.inStock > 0)
+		return inStock
 
-    let inStock = cakes.filter(cake => cake.inStock > 0)
-    return inStock
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  totalInventory() {
-    // Return the total amount of cakes in stock e.g.
-    // 59
+	totalInventory() {
+		// Return the total amount of cakes in stock e.g.
+		// 59
 
-    let count = cakes.reduce((a, cV) => a += cV.inStock, 0)
-    return count
-    /* CODE GOES HERE */
+		let count = cakes.reduce((a, cV) => a += cV.inStock, 0)
+		return count
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  allToppings() {
-    // Return an array of all unique toppings (no duplicates) needed to bake
-    // every cake in the dataset e.g.
-    // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
+	allToppings() {
+		// Return an array of all unique toppings (no duplicates) needed to bake
+		// every cake in the dataset e.g.
+		// ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    /* CODE GOES HERE */
-    let allToppings = cakes.map(cake => cake.toppings).flat()
-    let noDups = [...new Set(allToppings)]
-    return noDups
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		let allToppings = cakes.map(cake => cake.toppings).flat()
+		let noDups = [...new Set(allToppings)]
+		return noDups
+		
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  groceryList() {
-    // I need to make a grocery list. Please give me an object where the keys are
-    // each topping, and the values are the amount of that topping I need to buy e.g.
-    // {
-    //    'dutch process cocoa': 1,
-    //    'toasted sugar': 3,
-    //    'smoked sea salt': 3,
-    //    'berries': 2,
-    //    ...etc
-    // }
+	groceryList() {
+		// I need to make a grocery list. Please give me an object where the keys are
+		// each topping, and the values are the amount of that topping I need to buy e.g.
+		// {
+		//    'dutch process cocoa': 1,
+		//    'toasted sugar': 3,
+		//    'smoked sea salt': 3,
+		//    'berries': 2,
+		//    ...etc
+		// }
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
 
@@ -278,43 +245,43 @@ const cakePrompts = {
 
 // DATASET: classrooms from ./datasets/classrooms
 const classPrompts = {
-  feClassrooms() {
-    // Create an array of just the front-end classrooms. e.g.
-    // [
-    //   { roomLetter: 'A', program: 'FE', capacity: 32 },
-    //   { roomLetter: 'C', program: 'FE', capacity: 27 },
-    //   { roomLetter: 'E', program: 'FE', capacity: 22 },
-    //   { roomLetter: 'G', program: 'FE', capacity: 29 }
-    // ]
+	feClassrooms() {
+		// Create an array of just the front-end classrooms. e.g.
+		// [
+		//   { roomLetter: 'A', program: 'FE', capacity: 32 },
+		//   { roomLetter: 'C', program: 'FE', capacity: 27 },
+		//   { roomLetter: 'E', program: 'FE', capacity: 22 },
+		//   { roomLetter: 'G', program: 'FE', capacity: 29 }
+		// ]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  totalCapacities() {
-    // Create an object where the keys are 'feCapacity' and 'beCapacity',
-    // and the values are the total capacity for all classrooms in each program e.g.
-    // {
-    //   feCapacity: 110,
-    //   beCapacity: 96
-    // }
+	totalCapacities() {
+		// Create an object where the keys are 'feCapacity' and 'beCapacity',
+		// and the values are the total capacity for all classrooms in each program e.g.
+		// {
+		//   feCapacity: 110,
+		//   beCapacity: 96
+		// }
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  sortByCapacity() {
-    // Return the array of classrooms sorted by their capacity (least capacity to greatest)
+	sortByCapacity() {
+		// Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
 // ---------------------------------------------------------------------------
@@ -326,52 +293,52 @@ const classPrompts = {
 // DATASET: books from './datasets/books
 
 const bookPrompts = {
-  removeViolence() {
-    // Your function should access the books data through a parameter (it is being passed as an argument in the test file)
-    // return an array of all book titles that are not horror or true crime. Eg:
+	removeViolence() {
+		// Your function should access the books data through a parameter (it is being passed as an argument in the test file)
+		// return an array of all book titles that are not horror or true crime. Eg:
 
-    //  ['1984', 'The Great Gatsby', 'Lord of the Flies', 'Harry Potter and the Sorcerer\'s Stone',
-    //   'The Hitchhiker\'s Guide to the Galaxy', 'Flowers for Algernon', 'Slaughterhouse-Five',
-    //   'The Handmaid\'s Tale', 'The Metamorphosis', 'Brave New World', 'Life of Pi',
-    //   'The Curious Incident of the Dog in the Night - Time', 'The Bell Jar',
-    //   'Catch-22', 'Treasure Island']
+		//  ['1984', 'The Great Gatsby', 'Lord of the Flies', 'Harry Potter and the Sorcerer\'s Stone',
+		//   'The Hitchhiker\'s Guide to the Galaxy', 'Flowers for Algernon', 'Slaughterhouse-Five',
+		//   'The Handmaid\'s Tale', 'The Metamorphosis', 'Brave New World', 'Life of Pi',
+		//   'The Curious Incident of the Dog in the Night - Time', 'The Bell Jar',
+		//   'Catch-22', 'Treasure Island']
 
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
+		// Annotation:
+		// Write your annotation here as a comment
 
-  },
-  getNewBooks() {
-    // return an array of objects containing all books that were
-    // published in the 90's and 00's. Inlucde the title and the year Eg:
+	},
+	getNewBooks() {
+		// return an array of objects containing all books that were
+		// published in the 90's and 00's. Inlucde the title and the year Eg:
 
-    // [{ title: 'Harry Potter and the Sorcerer\'s Stone', year: 1997 },
-    //  { title: 'Life of Pi', year: 2001 },
-    //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
+		// [{ title: 'Harry Potter and the Sorcerer\'s Stone', year: 1997 },
+		//  { title: 'Life of Pi', year: 2001 },
+		//  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  getBooksByYear(books, year) {
-    // return an array of objects containing all books that were
-    // published after the specified year without the author or genre data. 
-    // The published property should be changed to year for the returned books.
-    // e.g. given 1990, return
+	getBooksByYear(books, year) {
+		// return an array of objects containing all books that were
+		// published after the specified year without the author or genre data. 
+		// The published property should be changed to year for the returned books.
+		// e.g. given 1990, return
 
-    // [{ title: 'Harry Potter and the Sorcerer\'s Stone', year: 1997 },
-    //  { title: 'Life of Pi', year: 2001 },
-    //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
+		// [{ title: 'Harry Potter and the Sorcerer\'s Stone', year: 1997 },
+		//  { title: 'Life of Pi', year: 2001 },
+		//  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 
 };
 
@@ -385,44 +352,44 @@ const bookPrompts = {
 // DATASET: weather from './datasets/weather
 
 const weatherPrompts = {
-  getAverageTemps() {
-    // return an array of all the average temperatures. Eg:
-    // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
+	getAverageTemps() {
+		// return an array of all the average temperatures. Eg:
+		// [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  findSunnySpots() {
-    // Return an array of sentences of the locations that are sunny
-    // and mostly sunny. Include the location and weather type. Eg:
-    // [ 'Atlanta, Georgia is sunny.',
-    // 'New Orleans, Louisiana is sunny.',
-    // 'Raleigh, North Carolina is mostly sunny.' ]
+	findSunnySpots() {
+		// Return an array of sentences of the locations that are sunny
+		// and mostly sunny. Include the location and weather type. Eg:
+		// [ 'Atlanta, Georgia is sunny.',
+		// 'New Orleans, Louisiana is sunny.',
+		// 'Raleigh, North Carolina is mostly sunny.' ]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  findHighestHumidity() {
-    // Return the location with the highest humidity. Eg:
-    // {
-    //   location: 'Portland, Oregon',
-    //   type: 'cloudy',
-    //   humidity: 84,
-    //   temperature: { high: 49, low: 38 }
-    // }
+	findHighestHumidity() {
+		// Return the location with the highest humidity. Eg:
+		// {
+		//   location: 'Portland, Oregon',
+		//   type: 'cloudy',
+		//   humidity: 84,
+		//   temperature: { high: 49, low: 38 }
+		// }
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
+		// Annotation:
+		// Write your annotation here as a comment
 
-  }
+	}
 };
 
 // ---------------------------------------------------------------------------
@@ -435,57 +402,57 @@ const weatherPrompts = {
 // DATASET: nationalParks from ./datasets/nationalParks
 
 const nationalParksPrompts = {
-  getParkVisitList() {
-    /// Return an object containing the names of which parks I need to visit
-    // and the ones I have already visited eg:
-    // {
-    //   parksToVisit: ["Yellowstone", "Glacier", "Everglades"],
-    //   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
-    //}
+	getParkVisitList() {
+		/// Return an object containing the names of which parks I need to visit
+		// and the ones I have already visited eg:
+		// {
+		//   parksToVisit: ["Yellowstone", "Glacier", "Everglades"],
+		//   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
+		//}
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  getParkInEachState() {
-    // Return an array of objects where the key is the state and the value is its National Park
-    // eg: [ { Colorado: 'Rocky Mountain' },
-    // { Wyoming: 'Yellowstone' },
-    // { Montana: 'Glacier' },
-    // { Maine: 'Acadia' },
-    // { Utah: 'Zion' },
-    // { Florida: 'Everglades' } ]
+	getParkInEachState() {
+		// Return an array of objects where the key is the state and the value is its National Park
+		// eg: [ { Colorado: 'Rocky Mountain' },
+		// { Wyoming: 'Yellowstone' },
+		// { Montana: 'Glacier' },
+		// { Maine: 'Acadia' },
+		// { Utah: 'Zion' },
+		// { Florida: 'Everglades' } ]
 
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  getParkActivities() {
-    // Return an array of all the activities I can do
-    // in a National Park. Make sure to exclude duplicates. eg:
-    // [ 'hiking',
-    //   'shoeshoing',
-    //   'camping',
-    //   'fishing',
-    //   'boating',
-    //   'watching wildlife',
-    //   'cross-country skiing',
-    //   'swimming',
-    //   'bird watching',
-    //   'canyoneering',
-    //   'backpacking',
-    //   'rock climbing' ]
+	getParkActivities() {
+		// Return an array of all the activities I can do
+		// in a National Park. Make sure to exclude duplicates. eg:
+		// [ 'hiking',
+		//   'shoeshoing',
+		//   'camping',
+		//   'fishing',
+		//   'boating',
+		//   'watching wildlife',
+		//   'cross-country skiing',
+		//   'swimming',
+		//   'bird watching',
+		//   'canyoneering',
+		//   'backpacking',
+		//   'rock climbing' ]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
 
@@ -503,53 +470,53 @@ const nationalParksPrompts = {
 
 // DATASET: breweries from ./datasets/breweries
 const breweryPrompts = {
-  getBeerCount() {
-    // Return the total beer count of all beers for every brewery e.g.
-    // 40
+	getBeerCount() {
+		// Return the total beer count of all beers for every brewery e.g.
+		// 40
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  getBreweryBeerCount() {
-    // Return an array of objects where each object has the name of a brewery
-    // and the count of the beers that brewery has e.g.
-    // [
-    //  { name: 'Little Machine Brew', beerCount: 12 },
-    //  { name: 'Ratio Beerworks', beerCount: 5},
-    // ...etc.
-    // ]
+	getBreweryBeerCount() {
+		// Return an array of objects where each object has the name of a brewery
+		// and the count of the beers that brewery has e.g.
+		// [
+		//  { name: 'Little Machine Brew', beerCount: 12 },
+		//  { name: 'Ratio Beerworks', beerCount: 5},
+		// ...etc.
+		// ]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  getSingleBreweryBeerCount(breweryName) {
-    // Return a number that is the count of beers that the specified
-    // brewery has e.g.
-    // given 'Ratio Beerworks', return 5
+	getSingleBreweryBeerCount(breweryName) {
+		// Return a number that is the count of beers that the specified
+		// brewery has e.g.
+		// given 'Ratio Beerworks', return 5
 
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  findHighestAbvBeer() {
-    // Return the beer which has the highest ABV of all beers
-    // e.g.
-    // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
+	findHighestAbvBeer() {
+		// Return the beer which has the highest ABV of all beers
+		// e.g.
+		// { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
 
@@ -562,62 +529,62 @@ const breweryPrompts = {
 // DATASET: weather from './datasets/boardGames
 
 const boardGamePrompts = {
-  listGames(type) {
-    // Return an array of just the names of the games within a specified type. 
-    // e.g. given an argument of "strategy", return
-    // ["Chess", "Catan", "Checkers", "Pandemic", "Battle Ship", "Azul", "Ticket to Ride"]
+	listGames(type) {
+		// Return an array of just the names of the games within a specified type. 
+		// e.g. given an argument of "strategy", return
+		// ["Chess", "Catan", "Checkers", "Pandemic", "Battle Ship", "Azul", "Ticket to Ride"]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  listGamesAlphabetically(type) {
-    // Return an array of just the names of the games within a specified 
-    // type, sorted alphabetically. 
-    // e.g. given an argument of "childrens", return
-    // ["Candy Land", "Connect Four", "Operation", "Trouble"]
+	listGamesAlphabetically(type) {
+		// Return an array of just the names of the games within a specified 
+		// type, sorted alphabetically. 
+		// e.g. given an argument of "childrens", return
+		// ["Candy Land", "Connect Four", "Operation", "Trouble"]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  findHighestRatedGamesByType(type) {
-    // Return an object which is the highest rated game within the specified type.
-    // e.g. given the argument of 'party', return
-    // { name: 'Codenames', rating: 7.4, maxPlayers: 8 },
+	findHighestRatedGamesByType(type) {
+		// Return an object which is the highest rated game within the specified type.
+		// e.g. given the argument of 'party', return
+		// { name: 'Codenames', rating: 7.4, maxPlayers: 8 },
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  averageScoreByType(type) {
-    // Return the average score for the specified type.
-    // e.g. given the argument of "strategy", return 7
-    // note: do not worry about rounding your result.
+	averageScoreByType(type) {
+		// Return the average score for the specified type.
+		// e.g. given the argument of "strategy", return 7
+		// note: do not worry about rounding your result.
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  averageScoreByTypeAndPlayers(type, maximumPlayers) {
-    // Return the average score of any games that match the specified type
-    // and maximum number of players.
-    // e.g. given the arguments of "strategy" and 2, return 6.16666666667
-    // note: do not worry about rounding your result.
+	averageScoreByTypeAndPlayers(type, maximumPlayers) {
+		// Return the average score of any games that match the specified type
+		// and maximum number of players.
+		// e.g. given the arguments of "strategy" and 2, return 6.16666666667
+		// note: do not worry about rounding your result.
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
 
@@ -652,69 +619,69 @@ const boardGamePrompts = {
 
 // DATASET: instructors, cohorts from ./datasets/turing
 const turingPrompts = {
-  studentsForEachInstructor() {
-    // Return an array of instructors where each instructor is an object
-    // with a name and the count of students in their module. e.g.
-    // [
-    //  { name: 'Pam', studentCount: 21 },
-    //  { name: 'Robbie', studentCount: 18 }
-    // ]
+	studentsForEachInstructor() {
+		// Return an array of instructors where each instructor is an object
+		// with a name and the count of students in their module. e.g.
+		// [
+		//  { name: 'Pam', studentCount: 21 },
+		//  { name: 'Robbie', studentCount: 18 }
+		// ]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  studentsPerInstructor() {
-    // Return an object of how many students per teacher there are in each cohort e.g.
-    // {
-    // cohort1806: 9,
-    // cohort1804: 10.5
-    // }
+	studentsPerInstructor() {
+		// Return an object of how many students per teacher there are in each cohort e.g.
+		// {
+		// cohort1806: 9,
+		// cohort1804: 10.5
+		// }
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  modulesPerTeacher() {
-    // Return an object where each key is an instructor name and each value is
-    // an array of the modules they can teach based on their skills. e.g.:
-    // {
-    //     Pam: [2, 4],
-    //     Brittany: [2, 4],
-    //     Nathaniel: [2, 4],
-    //     Robbie: [4],
-    //     Leta: [2, 4],
-    //     Travis: [1, 2, 3, 4],
-    //     Louisa: [1, 2, 3, 4],
-    //     Christie: [1, 2, 3, 4],
-    //     Will: [1, 2, 3, 4]
-    //   }
+	modulesPerTeacher() {
+		// Return an object where each key is an instructor name and each value is
+		// an array of the modules they can teach based on their skills. e.g.:
+		// {
+		//     Pam: [2, 4],
+		//     Brittany: [2, 4],
+		//     Nathaniel: [2, 4],
+		//     Robbie: [4],
+		//     Leta: [2, 4],
+		//     Travis: [1, 2, 3, 4],
+		//     Louisa: [1, 2, 3, 4],
+		//     Christie: [1, 2, 3, 4],
+		//     Will: [1, 2, 3, 4]
+		//   }
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  curriculumPerTeacher() {
-    // Return an object where each key is a curriculum topic and each value is
-    // an array of instructors who teach that topic e.g.:
-    // {
-    //   html: [ 'Travis', 'Louisa' ],
-    //   css: [ 'Travis', 'Louisa' ],
-    //   javascript: [ 'Travis', 'Louisa', 'Christie', 'Will' ],
-    //   recursion: [ 'Pam', 'Leta' ]
-    // }
+	curriculumPerTeacher() {
+		// Return an object where each key is a curriculum topic and each value is
+		// an array of instructors who teach that topic e.g.:
+		// {
+		//   html: [ 'Travis', 'Louisa' ],
+		//   css: [ 'Travis', 'Louisa' ],
+		//   javascript: [ 'Travis', 'Louisa', 'Christie', 'Will' ],
+		//   recursion: [ 'Pam', 'Leta' ]
+		// }
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
 
@@ -735,20 +702,20 @@ const turingPrompts = {
 
 // DATASET: bosses, sidekicks from ./datasets/bosses
 const bossPrompts = {
-  bossLoyalty() {
-    // Create an array of objects that each have the name of the boss and the sum
-    // loyalty of all their sidekicks. e.g.:
-    // [
-    //   { bossName: 'Jafar', sidekickLoyalty: 3 },
-    //   { bossName: 'Ursula', sidekickLoyalty: 20 },
-    //   { bossName: 'Scar', sidekickLoyalty: 16 }
-    // ]
+	bossLoyalty() {
+		// Create an array of objects that each have the name of the boss and the sum
+		// loyalty of all their sidekicks. e.g.:
+		// [
+		//   { bossName: 'Jafar', sidekickLoyalty: 3 },
+		//   { bossName: 'Ursula', sidekickLoyalty: 20 },
+		//   { bossName: 'Scar', sidekickLoyalty: 16 }
+		// ]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
 
@@ -769,80 +736,80 @@ const bossPrompts = {
 
 // DATASET: constellations, stars } from ./datasets/astronomy
 const astronomyPrompts = {
-  starsInConstellations() {
-    // Return an array of all the star objects that appear in any of the constellations
-    // listed in the constellations object e.g.
-    // [
-    //   { name: 'Rigel',
-    //     visualMagnitude: 0.13,
-    //     constellation: 'Orion',
-    //     lightYearsFromEarth: 860,
-    //     color: 'blue' },
-    //   { name: 'Betelgeuse',
-    //     visualMagnitude: 0.5,
-    //     constellation: 'Orion',
-    //     lightYearsFromEarth: 640,
-    //     color: 'red' },
-    //   {
-    //     name: 'Achernar',
-    //     visualMagnitude: 0.46,
-    //     constellation: 'The Plow',
-    //     lightYearsFromEarth: 140,
-    //     color: 'blue'
-    //   },
-    //   {
-    //     name: 'Hadar',
-    //     visualMagnitude: 0.61,
-    //     constellation: 'The Little Dipper',
-    //     lightYearsFromEarth: 350,
-    //     color: 'blue'
-    //   }
-    // ]
+	starsInConstellations() {
+		// Return an array of all the star objects that appear in any of the constellations
+		// listed in the constellations object e.g.
+		// [
+		//   { name: 'Rigel',
+		//     visualMagnitude: 0.13,
+		//     constellation: 'Orion',
+		//     lightYearsFromEarth: 860,
+		//     color: 'blue' },
+		//   { name: 'Betelgeuse',
+		//     visualMagnitude: 0.5,
+		//     constellation: 'Orion',
+		//     lightYearsFromEarth: 640,
+		//     color: 'red' },
+		//   {
+		//     name: 'Achernar',
+		//     visualMagnitude: 0.46,
+		//     constellation: 'The Plow',
+		//     lightYearsFromEarth: 140,
+		//     color: 'blue'
+		//   },
+		//   {
+		//     name: 'Hadar',
+		//     visualMagnitude: 0.61,
+		//     constellation: 'The Little Dipper',
+		//     lightYearsFromEarth: 350,
+		//     color: 'blue'
+		//   }
+		// ]
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  starsByColor() {
-    // Return an object with keys of the different colors of the stars,
-    // whose values are arrays containing the star objects that match e.g.
-    // {
-    //   blue: [{obj}, {obj}, {obj}, {obj}, {obj}],
-    //   white: [{obj}, {obj}],
-    //   yellow: [{obj}, {obj}],
-    //   orange: [{obj}],
-    //   red: [{obj}]
-    // }
+	starsByColor() {
+		// Return an object with keys of the different colors of the stars,
+		// whose values are arrays containing the star objects that match e.g.
+		// {
+		//   blue: [{obj}, {obj}, {obj}, {obj}, {obj}],
+		//   white: [{obj}, {obj}],
+		//   yellow: [{obj}, {obj}],
+		//   orange: [{obj}],
+		//   red: [{obj}]
+		// }
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  constellationsStarsExistIn() {
-    // Sort the stars by brightness and return an array of the star's constellation names
-    // Brightest Stars are indicated by visualMagnitude - the lower the number, the brighter the star
-    // e.g.
-    //  [ "Canis Major",
-    //    "Carina",
-    //    "Boötes",
-    //    "Auriga",
-    //    "Orion",
-    //    "Lyra",
-    //    "Canis Minor",
-    //    "The Plow",
-    //    "Orion",
-    //    "The Little Dipper" ]
+	constellationsStarsExistIn() {
+		// Sort the stars by brightness and return an array of the star's constellation names
+		// Brightest Stars are indicated by visualMagnitude - the lower the number, the brighter the star
+		// e.g.
+		//  [ "Canis Major",
+		//    "Carina",
+		//    "Boötes",
+		//    "Auriga",
+		//    "Orion",
+		//    "Lyra",
+		//    "Canis Minor",
+		//    "The Plow",
+		//    "Orion",
+		//    "The Little Dipper" ]
 
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
 
@@ -863,27 +830,27 @@ const astronomyPrompts = {
 
 // DATASET: charaters, weapons from ./datasets/ultima
 const ultimaPrompts = {
-  totalDamage() {
+	totalDamage() {
 
-    // Return the sum of the amount of damage for all the weapons that our characters can use
-    // Answer => 113
+		// Return the sum of the amount of damage for all the weapons that our characters can use
+		// Answer => 113
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  charactersByTotal() {
+	charactersByTotal() {
 
-    // Return the sum damage and total range for each character as an object.
-    // ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
+		// Return the sum damage and total range for each character as an object.
+		// ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 };
 
 
@@ -904,124 +871,124 @@ const ultimaPrompts = {
 
 // DATASET: dinosaurs, humans, movies from ./datasets/dinosaurs
 const dinosaurPrompts = {
-  countAwesomeDinosaurs() {
-    // Return an object where each key is a movie title and each value is the
-    // number of awesome dinosaurs in that movie. e.g.:
-    // {
-    //   'Jurassic Park': 5,
-    //   'The Lost World: Jurassic Park': 8,
-    //   'Jurassic Park III': 9,
-    //   'Jurassic World': 11,
-    //   'Jurassic World: Fallen Kingdom': 18
-    // }
+	countAwesomeDinosaurs() {
+		// Return an object where each key is a movie title and each value is the
+		// number of awesome dinosaurs in that movie. e.g.:
+		// {
+		//   'Jurassic Park': 5,
+		//   'The Lost World: Jurassic Park': 8,
+		//   'Jurassic Park III': 9,
+		//   'Jurassic World': 11,
+		//   'Jurassic World: Fallen Kingdom': 18
+		// }
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  averageAgePerMovie() {
-    /* Return an object where each key is a movie director's name and each value is
-        an object whose key is a movie's title and whose value is the average age
-        of the cast on the release year of that movie.
-      e.g.:
-      {
-        'Steven Spielberg':
-          {
-            'Jurassic Park': 34,
-            'The Lost World: Jurassic Park': 37
-          },
-        'Joe Johnston':
-          {
-            'Jurassic Park III': 44
-          },
-        'Colin Trevorrow':
-          {
-            'Jurassic World': 56
-           },
-        'J. A. Bayona':
-          {
-            'Jurassic World: Fallen Kingdom': 59
-          }
-      }
-    */
+	averageAgePerMovie() {
+		/* Return an object where each key is a movie director's name and each value is
+				an object whose key is a movie's title and whose value is the average age
+				of the cast on the release year of that movie.
+			e.g.:
+			{
+				'Steven Spielberg':
+					{
+						'Jurassic Park': 34,
+						'The Lost World: Jurassic Park': 37
+					},
+				'Joe Johnston':
+					{
+						'Jurassic Park III': 44
+					},
+				'Colin Trevorrow':
+					{
+						'Jurassic World': 56
+					 },
+				'J. A. Bayona':
+					{
+						'Jurassic World: Fallen Kingdom': 59
+					}
+			}
+		*/
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  uncastActors() {
-    /*
-    Return an array of objects that contain the names of humans who have not been cast in a Jurassic Park movie (yet), their nationality, and their imdbStarMeterRating. The object in the array should be sorted alphabetically by nationality.
+	uncastActors() {
+		/*
+		Return an array of objects that contain the names of humans who have not been cast in a Jurassic Park movie (yet), their nationality, and their imdbStarMeterRating. The object in the array should be sorted alphabetically by nationality.
 
-    e.g.
-      [{
-        name: 'Justin Duncan',
-        nationality: 'Alien',
-        imdbStarMeterRating: 0
-      },
-      {
-        name: 'Karin Ohman',
-        nationality: 'Chinese',
-        imdbStarMeterRating: 0
-      },
-      {
-        name: 'Tom Wilhoit',
-        nationality: 'Kiwi',
-        imdbStarMeterRating: 1
-      }, {
-        name: 'Jeo D',
-        nationality: 'Martian',
-        imdbStarMeterRating: 0
-      }]
-    */
+		e.g.
+			[{
+				name: 'Justin Duncan',
+				nationality: 'Alien',
+				imdbStarMeterRating: 0
+			},
+			{
+				name: 'Karin Ohman',
+				nationality: 'Chinese',
+				imdbStarMeterRating: 0
+			},
+			{
+				name: 'Tom Wilhoit',
+				nationality: 'Kiwi',
+				imdbStarMeterRating: 1
+			}, {
+				name: 'Jeo D',
+				nationality: 'Martian',
+				imdbStarMeterRating: 0
+			}]
+		*/
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  },
+		// Annotation:
+		// Write your annotation here as a comment
+	},
 
-  actorsAgesInMovies() {
-    /*
-    Return an array of objects for each human and the age(s) they were in the movie(s) they were cast in, as an array of age(s). Only include humans who were cast in at least one movie.
+	actorsAgesInMovies() {
+		/*
+		Return an array of objects for each human and the age(s) they were in the movie(s) they were cast in, as an array of age(s). Only include humans who were cast in at least one movie.
 
-    e.g.
-    [ { name: 'Sam Neill', ages: [ 46, 54 ] },
-      { name: 'Laura Dern', ages: [ 26, 34 ] },
-      { name: 'Jeff Goldblum', ages: [ 41, 45, 63, 66 ] },
-      { name: 'Richard Attenborough', ages: [ 70, 74, 92, 95 ] },
-      { name: 'Ariana Richards', ages: [ 14, 18 ] },
-      { name: 'Joseph Mazello', ages: [ 10, 14 ] },
-      { name: 'BD Wong', ages: [ 33, 55, 58 ] },
-      { name: 'Chris Pratt', ages: [ 36, 39 ] },
-      { name: 'Bryce Dallas Howard', ages: [ 34, 37 ] } ]
-    */
+		e.g.
+		[ { name: 'Sam Neill', ages: [ 46, 54 ] },
+			{ name: 'Laura Dern', ages: [ 26, 34 ] },
+			{ name: 'Jeff Goldblum', ages: [ 41, 45, 63, 66 ] },
+			{ name: 'Richard Attenborough', ages: [ 70, 74, 92, 95 ] },
+			{ name: 'Ariana Richards', ages: [ 14, 18 ] },
+			{ name: 'Joseph Mazello', ages: [ 10, 14 ] },
+			{ name: 'BD Wong', ages: [ 33, 55, 58 ] },
+			{ name: 'Chris Pratt', ages: [ 36, 39 ] },
+			{ name: 'Bryce Dallas Howard', ages: [ 34, 37 ] } ]
+		*/
 
-    /* CODE GOES HERE */
+		/* CODE GOES HERE */
 
-    // Annotation:
-    // Write your annotation here as a comment
-  }
+		// Annotation:
+		// Write your annotation here as a comment
+	}
 };
 
 module.exports = {
-  breweryPrompts,
-  turingPrompts,
-  clubPrompts,
-  bossPrompts,
-  classPrompts,
-  modPrompts,
-  kittyPrompts,
-  cakePrompts,
-  astronomyPrompts,
-  ultimaPrompts,
-  nationalParksPrompts,
-  weatherPrompts,
-  bookPrompts,
-  dinosaurPrompts,
-  boardGamePrompts,
+	breweryPrompts,
+	turingPrompts,
+	clubPrompts,
+	bossPrompts,
+	classPrompts,
+	modPrompts,
+	kittyPrompts,
+	cakePrompts,
+	astronomyPrompts,
+	ultimaPrompts,
+	nationalParksPrompts,
+	weatherPrompts,
+	bookPrompts,
+	dinosaurPrompts,
+	boardGamePrompts,
 };

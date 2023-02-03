@@ -20,26 +20,28 @@ const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
 
 // DATASET: kitties from ./datasets/kitties
 const kittyPrompts = {
-  orangePetNames() {
+  orangePetNames(petData) {
     // Return an array of just the names of kitties who are orange e.g.
         // ['Tiger', 'Snickers']
 
-        /* CODE GOES HERE */
+    const orangePetNames = petData.filter(pet => pet.color === 'orange')
+                                  .map(pet => pet.name)
+      return orangePetNames
 
     // Annotation:
     // Write your annotation here as a comment
   },
 
-  sortByAge() {
+  sortByAge(petData) {
     // Sort the kitties by their age
 
-    /* CODE GOES HERE */
+    return petData.sort((a, b) => b.age - a.age)
 
     // Annotation:
-    // Write your annotation here as a comment
+    // .sort is interesting... a, b are comparisons of items in the array where a is the first and b is each item after. You must use dot notation to tell .sort where to find the values you want to sort by. a and b are evaluated to return 1, -1, or 0. 1 means a is greater than b, -1 means a is less than b and 0 means they are equal.
   },
 
-  growUp() {
+  growUp(petData) {
     // Return an array of kitties who have all grown up by 2 years e.g.
     // [{
     //   name: 'Felicia',
@@ -53,7 +55,18 @@ const kittyPrompts = {
     // },
     // ...etc]
 
-    /* CODE GOES HERE */
+    
+    
+    const oldPets = petData.map(pet => {
+      pet.age = pet.age + 2
+      return pet
+    })
+    return oldPets
+
+
+    // How do I get this to work??
+    // const oldPets = petData.map(pet => pet.age = pet.age + 2)
+    //   return oldPets
   }
 };
 
@@ -77,7 +90,7 @@ const kittyPrompts = {
 
 // DATASET: clubs from ./datasets/clubs
 const clubPrompts = {
-  membersBelongingToClubs() {
+  membersBelongingToClubs(data) {
     // Your function should access the clubs data through a parameter (it is being passed as an argument in the test file)
     // Create an object whose keys are the names of people, and whose values are
     // arrays that include the names of the clubs that person is a part of. e.g.
@@ -88,7 +101,17 @@ const clubPrompts = {
     // }
 
     /* CODE GOES HERE */
+    let names = data.map(club => club.members).flat()
+    let noDuplicates = [...new Set(names)]
 
+    let theirClubs = data.map(club => {
+      club.members.filter(member => member === 'Louisa')
+    })
+    // let membership = noDuplicates.reduce((a, cV) => {
+    //   a[cV] = cV
+    // }, {})
+    // console.log(theirClubs)
+    // console.log(noDuplicates)
     // Annotation:
     // Write your annotation here as a comment
   }
@@ -112,7 +135,7 @@ const clubPrompts = {
 
 // DATASET: mods from ./datasets/mods
 const modPrompts = {
-  studentsPerMod() {
+  studentsPerMod(data) {
     // Return an array of objects where the keys are mod (the number of the module)
     // and studentsPerInstructor (how many students per instructor there are for that mod) e.g.
     // [
@@ -123,6 +146,9 @@ const modPrompts = {
     // ]
 
     /* CODE GOES HERE */
+    // data.reduce((a, cV) => {
+    //   a[cV] = 
+    // }, {})
 
     // Annotation:
     // Write your annotation here as a comment
@@ -185,6 +211,8 @@ const cakePrompts = {
 
     /* CODE GOES HERE */
 
+    let inStock = cakes.filter(cake => cake.inStock > 0)
+    return inStock
     // Annotation:
     // Write your annotation here as a comment
   },
@@ -193,6 +221,8 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
+    let count = cakes.reduce((a, cV) => a += cV.inStock, 0)
+    return count
     /* CODE GOES HERE */
 
     // Annotation:
@@ -205,7 +235,9 @@ const cakePrompts = {
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
     /* CODE GOES HERE */
-
+    let allToppings = cakes.map(cake => cake.toppings).flat()
+    let noDups = [...new Set(allToppings)]
+    return noDups
     // Annotation:
     // Write your annotation here as a comment
   },

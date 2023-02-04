@@ -470,11 +470,15 @@ const nationalParksPrompts = {
 		return [...new Set(nationalParks.map(park => park.activities).flat())]
 
 		// Annotation:
-		// Write your annotation here as a comment
+		// Missing
+
+
+
+
+
+
 	}
-};
-
-
+}
 
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
@@ -493,7 +497,7 @@ const breweryPrompts = {
 		// Return the total beer count of all beers for every brewery e.g.
 		// 40
 
-		/* CODE GOES HERE */
+		return breweries.reduce((acc, cV) => acc += cV.beers.length, 0)
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -508,7 +512,7 @@ const breweryPrompts = {
 		// ...etc.
 		// ]
 
-		/* CODE GOES HERE */
+		return breweries.map(brewery => ({name: brewery.name, beerCount: brewery.beers.length}))
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -520,7 +524,7 @@ const breweryPrompts = {
 		// given 'Ratio Beerworks', return 5
 
 
-		/* CODE GOES HERE */
+		return breweries.find(brewery => brewery.name === breweryName).beers.length
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -531,7 +535,10 @@ const breweryPrompts = {
 		// e.g.
 		// { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-		/* CODE GOES HERE */
+		let highToLow = breweries.map(brewery => brewery.beers.sort((a, b) => b.abv - a.abv)).flat()
+
+
+		return highToLow.sort((a, b) => b.abv - a.abv)[0]
 
 		// Annotation:
 		// Write your annotation here as a comment

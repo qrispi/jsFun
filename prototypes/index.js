@@ -368,7 +368,6 @@ const weatherPrompts = {
 		// return an array of all the average temperatures. Eg:
 		// [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
-		/* CODE GOES HERE */
 		return weather.map(city => (city.temperature.high + city.temperature.low) / 2)
 
 		// Annotation:
@@ -382,7 +381,6 @@ const weatherPrompts = {
 		// 'New Orleans, Louisiana is sunny.',
 		// 'Raleigh, North Carolina is mostly sunny.' ]
 
-		/* CODE GOES HERE */
 		return weather.filter(city => city.type === 'sunny' || city.type === 'mostly sunny').map(city => `${city.location} is ${city.type}.`)
 
 		// Annotation:
@@ -398,9 +396,7 @@ const weatherPrompts = {
 		//   temperature: { high: 49, low: 38 }
 		// }
 
-		/* CODE GOES HERE */
-		let citiesByHumidity = weather.sort((aCity, bCity) => bCity.humidity - aCity.humidity)
-		return citiesByHumidity[0]
+		return weather.sort((aCity, bCity) => bCity.humidity - aCity.humidity)[0]
 
 		// Annotation:
 		// First instinct was to use find since we're only looking for one object back but having to compare each humidty temp to each other makes me think sort or reduce is the answer. I used sort to create a new array where the cities are ranked in order from highest humidity to lowest humidity. Then I return the first value from that new array. Sort takes two values and compares them to each other based off how you tell it to. In this case we are comparing b - a which will sort a behind b based off whether the value of b - a is negative or not. If b - a is positive, a gets sorted after b. If b - a is negative, b gets sorted after a.
@@ -425,10 +421,13 @@ const nationalParksPrompts = {
 		//   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
 		//}
 
-		/* CODE GOES HERE */
+		return {
+			parksToVisit: nationalParks.filter(park => !park.visited).map(park => park.name),
+			parksVisited: nationalParks.filter(park => park.visited).map(park => park.name)
+			}
 
 		// Annotation:
-		// Write your annotation here as a comment
+		// At first I wanted to use reduce since we want a new object back. However, since it's a different size with unique keys it didn't work because I kept resetting the key to a blank state with every iteration of reduce. So I just returned a new object with the values set to a map of filtered object data.
 	},
 
 	getParkInEachState() {
@@ -439,12 +438,17 @@ const nationalParksPrompts = {
 		// { Maine: 'Acadia' },
 		// { Utah: 'Zion' },
 		// { Florida: 'Everglades' } ]
+		
+		return nationalParks.map(park => ({[park.location]: park.name}))
+		// This was my first solution but I didn't realize I needed to wrap the key in brackets. I guess it takes it literally if you don't? aka park.location would be park.location: 'Rocky Mtn' instead of colorado: 'rocky Mtn'
 
 
-		/* CODE GOES HERE */
+		// return nationalParks.map(({location, name}) => ({[location]: name}))
 
 		// Annotation:
-		// Write your annotation here as a comment
+		// // array.map(({ key, value }) => ({ [key]: value }))
+		// which actually means array.map(array.key1, array.key2) return an object of {array.key1's value: array.key2's value}
+		// This is a crazy cool example of destructuring. Basically since we want an array thats the same length as nationalParks and we want keys and values that are the same as values from each object in the array, we can use minimal syntax to say use the values of these keys and create a new object with them.
 	},
 
 	getParkActivities() {
@@ -463,7 +467,7 @@ const nationalParksPrompts = {
 		//   'backpacking',
 		//   'rock climbing' ]
 
-		/* CODE GOES HERE */
+		return [...new Set(nationalParks.map(park => park.activities).flat())]
 
 		// Annotation:
 		// Write your annotation here as a comment

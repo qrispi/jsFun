@@ -523,7 +523,6 @@ const breweryPrompts = {
 		// brewery has e.g.
 		// given 'Ratio Beerworks', return 5
 
-
 		return breweries.find(brewery => brewery.name === breweryName).beers.length
 
 		// Annotation:
@@ -536,7 +535,6 @@ const breweryPrompts = {
 		// { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
 		let highToLow = breweries.map(brewery => brewery.beers.sort((a, b) => b.abv - a.abv)).flat()
-
 
 		return highToLow.sort((a, b) => b.abv - a.abv)[0]
 
@@ -552,7 +550,7 @@ const breweryPrompts = {
 // ---------------------------------------------------------------------------
 // ---------------------------------------------------------------------------
 
-// DATASET: weather from './datasets/boardGames
+// DATASET: boardGames from './datasets/boardGames
 
 const boardGamePrompts = {
 	listGames(type) {
@@ -560,7 +558,7 @@ const boardGamePrompts = {
 		// e.g. given an argument of "strategy", return
 		// ["Chess", "Catan", "Checkers", "Pandemic", "Battle Ship", "Azul", "Ticket to Ride"]
 
-		/* CODE GOES HERE */
+		return boardGames[type].map(game => game.name)
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -572,7 +570,7 @@ const boardGamePrompts = {
 		// e.g. given an argument of "childrens", return
 		// ["Candy Land", "Connect Four", "Operation", "Trouble"]
 
-		/* CODE GOES HERE */
+		return boardGames[type].map(game => game.name).sort()
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -583,7 +581,7 @@ const boardGamePrompts = {
 		// e.g. given the argument of 'party', return
 		// { name: 'Codenames', rating: 7.4, maxPlayers: 8 },
 
-		/* CODE GOES HERE */
+		return boardGames[type].sort((a, b) => b.rating - a.rating)[0]
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -594,7 +592,7 @@ const boardGamePrompts = {
 		// e.g. given the argument of "strategy", return 7
 		// note: do not worry about rounding your result.
 
-		/* CODE GOES HERE */
+		return boardGames[type].reduce((acc, cV) => acc += cV.rating, 0) / boardGames[type].length
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -606,7 +604,9 @@ const boardGamePrompts = {
 		// e.g. given the arguments of "strategy" and 2, return 6.16666666667
 		// note: do not worry about rounding your result.
 
-		/* CODE GOES HERE */
+		let filtered =  boardGames[type].filter(game => game.maxPlayers === maximumPlayers)
+		
+		return filtered.reduce((acc, cV) => acc += cV.rating, 0) / filtered.length
 
 		// Annotation:
 		// Write your annotation here as a comment

@@ -211,9 +211,11 @@ const cakePrompts = {
 		// every cake in the dataset e.g.
 		// ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-		let allToppings = cakes.map(cake => cake.toppings).flat()
-		let noDups = [...new Set(allToppings)]
-		return noDups
+		// let allToppings = cakes.flatMap(cake => cake.toppings)
+		// let noDups = [...new Set(allToppings)]
+		// return noDups
+
+		return [...new Set(cakes.flatMap(cake => cake.toppings))]
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -316,7 +318,11 @@ const classPrompts = {
 		//   beCapacity: 96
 		// }
 
-		/* CODE GOES HERE */
+		const sum = {feCapacity: 0, beCapacity: 0}
+
+		classrooms.forEach(room => room.program === 'FE' ? sum.feCapacity += room.capacity : sum.beCapacity += room.capacity)
+
+		return sum
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -325,7 +331,7 @@ const classPrompts = {
 	sortByCapacity() {
 		// Return the array of classrooms sorted by their capacity (least capacity to greatest)
 
-		/* CODE GOES HERE */
+		return classrooms.sort((a, b) => a.capacity - b.capacity)
 
 		// Annotation:
 		// Write your annotation here as a comment

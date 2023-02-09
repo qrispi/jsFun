@@ -163,7 +163,7 @@ const cakePrompts = {
 		//    ..etc
 		// ]
 
-		/* CODE GOES HERE */
+		return cakes.map(cake => ({flavor: cake.cakeFlavor, inStock: cake.inStock}))
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -190,8 +190,7 @@ const cakePrompts = {
 		// ..etc
 		// ]
 
-		let inStock = cakes.filter(cake => cake.inStock > 0)
-		return inStock
+		return cakes.filter(cake => cake.inStock > 0)
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -201,8 +200,7 @@ const cakePrompts = {
 		// Return the total amount of cakes in stock e.g.
 		// 59
 
-		let count = cakes.reduce((a, cV) => a += cV.inStock, 0)
-		return count
+		return cakes.reduce((a, cV) => a += cV.inStock, 0)
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -232,10 +230,48 @@ const cakePrompts = {
 		//    ...etc
 		// }
 
-		/* CODE GOES HERE */
+		// let allTops = cakePrompts.allToppings()
+
+		// return allTops.reduce((acc, cV) => {
+		// 	let count = 0
+		// 	cakes.forEach(cake => cake.toppings.forEach(topping => {
+		// 		if (topping === cV) {
+		// 			count++
+		// 		}
+		// 	}))
+		// 	acc[cV] = count
+		// 	return acc
+		// }, {})
+
+		const newList = cakes.flatMap(cake => cake.toppings)
+
+		const groceryList = {}
+
+		newList.forEach(topping => {
+		groceryList[topping] = (groceryList[topping] || 0) + 1
+		})
+
+		return groceryList
 
 		// Annotation:
-		// Write your annotation here as a comment
+		// My solution is commented out. And a craftier solution was provided by another student. Here is my own explanation of it:
+		// This line makes a new flat array of all cake toppings including duplicates (didn't know flatMap was a thing.. gonna start using that lol
+		// const newList = cakes.flatMap(cake => cake.toppings)
+		// Then a new blank object is initialized
+		// const gA = {}
+		// Then he iterates through each topping in the array and starts creating key value pairs. Here's where it gets tricky. If the key value pair doesn't exist yet, a new one is created and the value defaults to 0 + 1 because ga[topping] doesn't exist yet. If the key value pair does already exist then it reassigns the value of that key to be the value + 1.
+		// newList.forEach(topping => {
+		//   gA[topping] = (gA[topping] || 0) + 1
+		// })
+		// Like if the gA object is blank, then the first key value pair is
+		// 'dutch process cocoa': 0 + 1
+		// but then when it gets to this point:
+		// {
+		//   'dutch process cocoa': 1,
+		//   'toasted sugar': 1
+		// }
+		// when it gets to the next value of 'toasted sugar' in the newList array, it looks at the gA object, sees that 'toasted sugar' is already a key value pair and says ok I'm going to reassign it to
+		// 'toasted sugar': 1 + 1
 	}
 };
 
@@ -266,7 +302,7 @@ const classPrompts = {
 		//   { roomLetter: 'G', program: 'FE', capacity: 29 }
 		// ]
 
-		/* CODE GOES HERE */
+		return classrooms.filter(room => room.program === 'FE')
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -534,7 +570,7 @@ const breweryPrompts = {
 		// e.g.
 		// { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-		let highToLow = breweries.map(brewery => brewery.beers.sort((a, b) => b.abv - a.abv)).flat()
+		let highToLow = breweries.map(brewery => brewery.beers).flat()
 
 		return highToLow.sort((a, b) => b.abv - a.abv)[0]
 

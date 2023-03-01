@@ -89,23 +89,32 @@ const clubPrompts = {
 		//   ...etc
 		// }
 
-		let names = data.map(club => club.members).flat()
-    	let noDuplicates = [...new Set(names)]
+		// This is my first solution and its super complicated for no reason
+		// let names = data.map(club => club.members).flat()
+    	// let noDuplicates = [...new Set(names)]
 
 
-    	let membership = noDuplicates.reduce((acc, name) => {
-      		acc[name] = []
-      		data.forEach((club, index) => {
-        		club.members.forEach(member => {
-          			if(member === name) {
-            			acc[name].push(data[index].club)
-          			}
-        		})
-      		})
-      		return acc
-    	}, {})
+    	// let membership = noDuplicates.reduce((acc, cV) => {
+      	// 	acc[cV] = []
+      	// 	data.forEach((club, index) => {
+        // 		club.members.forEach(member => {
+        //   			if(member === cV) {
+        //     			acc[cV].push(data[index].club)
+        //   			}
+        // 		})
+      	// 	})
+      	// 	return acc
+    	// }, {})
 
-		return membership
+		// return membership
+
+		// Second solution:
+
+		return data.reduce((acc, cV) => {
+			cV.members.forEach(member => acc[member] ? acc[member].push(cV.club) : acc[member] = [cV.club])
+			return acc
+		}, {})
+
 		// Annotation:
 		// I am confident there is a better way to do this but here's my solution. First I get an array of every unique name by iterating through the clubs array and mapping every name value from the members key. I then flatten the array (remove all the inner brackets) with .flat(). I then create a new set inside an array using the spread operator which removes all the duplicate names. Then I run reduce to first set up an object where each key is the name and the value is a blank array. Then I run nested forEachs to go back through the clubs array, into the members array and push the club names into the blank name value array where the current name and the name in the members array match.
 	}
@@ -508,7 +517,7 @@ const nationalParksPrompts = {
 		//   'backpacking',
 		//   'rock climbing' ]
 
-		return [...new Set(nationalParks.map(park => park.activities).flat())]
+		return [...new Set(nationalParks.flatMap(park => park.activities))]
 
 		// Annotation:
 		// Missing
@@ -693,11 +702,11 @@ const turingPrompts = {
 		//  { name: 'Pam', studentCount: 21 },
 		//  { name: 'Robbie', studentCount: 18 }
 		// ]
-
-		/* CODE GOES HERE */
+			
+		return instructors.map(instruct => ({name: instruct.name, studentCount: cohorts[(instruct.module) - 1].studentCount}))
 
 		// Annotation:
-		// Write your annotation here as a comment
+		// I love how .map returns whatever you want. Really didn't think I could get this one to work with multiple datasets but here it is.
 	},
 
 	studentsPerInstructor() {
@@ -706,8 +715,17 @@ const turingPrompts = {
 		// cohort1806: 9,
 		// cohort1804: 10.5
 		// }
-
-		/* CODE GOES HERE */
+		
+		return cohorts.reduce((acc, cV, index) => {
+			let numInstructors = 0
+			instructors.forEach(instructor => {
+				if(instructor.module === index + 1) {
+					numInstructors++
+				}
+			})
+			acc['cohort' + cV.cohort] = cV.studentCount / numInstructors
+			return acc
+		}, {})
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -728,8 +746,18 @@ const turingPrompts = {
 		//     Will: [1, 2, 3, 4]
 		//   }
 
-		/* CODE GOES HERE */
-
+		return instructors.reduce((acc, cV) => {
+			acc[cV.name] = []
+			cohorts.forEach(cohort => {
+				cV.teaches.forEach(subject => {
+					if(cohort.curriculum.includes(subject) && !acc[cV.name].includes(cohort.module)) {
+						acc[cV.name].push(cohort.module)
+					}
+				})
+			})
+			return acc
+		}, {})
+		
 		// Annotation:
 		// Write your annotation here as a comment
 	},
@@ -744,7 +772,18 @@ const turingPrompts = {
 		//   recursion: [ 'Pam', 'Leta' ]
 		// }
 
-		/* CODE GOES HERE */
+		const subjects = cohorts.flatMap(cohort => cohort.curriculum)
+		return subjects.reduce((acc, subject) => {
+			if(!acc[subject]) {
+				acc[subject] = []
+				instructors.forEach(instruct => {
+					if(instruct.teaches.includes(subject)) {
+						acc[subject].push(instruct.name)
+					}
+				})
+			}
+			return acc
+		}, {})
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -777,8 +816,19 @@ const bossPrompts = {
 		//   { bossName: 'Ursula', sidekickLoyalty: 20 },
 		//   { bossName: 'Scar', sidekickLoyalty: 16 }
 		// ]
-
-		/* CODE GOES HERE */
+		
+		const keys = Object.keys(bosses)
+		return keys.map(boss => {
+			let loyalty = 0
+			bosses[boss].sidekicks.forEach(bosskick => {
+				sidekicks.forEach(sidekick => {
+					if(sidekick.name === bosskick.name) {
+						loyalty += sidekick.loyaltyToBoss
+					}
+				})
+			})
+			return {bossName: bosses[boss].name, sidekickLoyalty: loyalty}
+		})
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -833,7 +883,7 @@ const astronomyPrompts = {
 		//   }
 		// ]
 
-		/* CODE GOES HERE */
+		let constellationStars = constellations.flatMap(constel => constel.starNames)
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -902,7 +952,10 @@ const ultimaPrompts = {
 		// Return the sum of the amount of damage for all the weapons that our characters can use
 		// Answer => 113
 
-		/* CODE GOES HERE */
+		const allWeapons = characters.flatMap(character => character.weapons);
+		let damage = 0;
+		allWeapons.forEach(weapon => damage += weapons[weapon].damage);
+		return damage;
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -913,7 +966,15 @@ const ultimaPrompts = {
 		// Return the sum damage and total range for each character as an object.
 		// ex: [ { Avatar: { damage: 27, range: 24 }, { Iolo: {...}, ...}
 
-		/* CODE GOES HERE */
+		return characters.map(character => {
+			let damageNum = 0
+			let rangeNum = 0
+			character.weapons.forEach(weapon => {
+				damageNum += weapons[weapon].damage
+				rangeNum += weapons[weapon].range
+			})
+			return {[character.name]: {damage: damageNum, range: rangeNum}}
+		})
 
 		// Annotation:
 		// Write your annotation here as a comment
@@ -948,8 +1009,17 @@ const dinosaurPrompts = {
 		//   'Jurassic World': 11,
 		//   'Jurassic World: Fallen Kingdom': 18
 		// }
+		const dinoKeys = Object.keys(dinosaurs)
+		const awesomeDinos = dinoKeys.filter(key => dinosaurs[key].isAwesome)
 
-		/* CODE GOES HERE */
+		return movies.reduce((acc, cV) => {
+			let num = 0
+			cV.dinos.forEach(dino => {
+				if(awesomeDinos.indexOf(dino) !== -1) num++
+			})
+			acc[cV.title] = num
+			return acc
+		}, {})
 
 		// Annotation:
 		// Write your annotation here as a comment

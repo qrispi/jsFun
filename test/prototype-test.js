@@ -544,7 +544,7 @@ describe("PROTOTYPES", () => {
   })
 
   describe("Turing Prompts", () => {
-    it.skip("studentsForEachInstructor", () => {
+    it("studentsForEachInstructor", () => {
       const e = turingPrompts.studentsForEachInstructor();
 
       expect(e).to.deep.equal([{
@@ -577,7 +577,7 @@ describe("PROTOTYPES", () => {
       }])
     });
 
-    it.skip("studentsPerInstructor", () => {
+    it("studentsPerInstructor", () => {
       const e = turingPrompts.studentsPerInstructor();
 
       expect(e).to.deep.equal({
@@ -588,7 +588,7 @@ describe("PROTOTYPES", () => {
       })
     });
 
-    it.skip("modulesPerTeacher", () => {
+    it("modulesPerTeacher", () => {
       const e = turingPrompts.modulesPerTeacher();
 
       expect(e).to.deep.equal({
@@ -604,7 +604,7 @@ describe("PROTOTYPES", () => {
       })
     });
 
-    it.skip("curriculumPerTeacher", () => {
+    it("curriculumPerTeacher", () => {
       const e = turingPrompts.curriculumPerTeacher();
 
       expect(e).to.deep.equal({
@@ -624,7 +624,7 @@ describe("PROTOTYPES", () => {
   });
 
   describe("Boss Prompts", () => {
-    it.skip("bossLoyalty", () => {
+    it("bossLoyalty", () => {
       const e = bossPrompts.bossLoyalty();
 
       expect(e).to.deep.equal([{
@@ -760,13 +760,13 @@ describe("PROTOTYPES", () => {
   });
 
   describe("Ultima Prompts", () => {
-    it.skip("totalDamage", () => {
+    it("totalDamage", () => {
       const e = ultimaPrompts.totalDamage();
 
       expect(e).to.deep.equal(113)
     });
 
-    it.skip("charactersByTotal", () => {
+    it("charactersByTotal", () => {
       const e = ultimaPrompts.charactersByTotal();
 
       expect(e).to.deep.equal([{
@@ -794,7 +794,7 @@ describe("PROTOTYPES", () => {
   });
 
   describe("Dinosaur Prompts", () => {
-    it.skip("countAwesomeDinosaurs", () => {
+    it("countAwesomeDinosaurs", () => {
       const e = dinosaurPrompts.countAwesomeDinosaurs();
 
       expect(e).to.deep.equal({
